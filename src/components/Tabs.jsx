@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const fetchContent = async (tabId) => {
-  const response = await fetch("https://loripsum.net/api/1/short");
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  return response.text();
+  const response = await axios.get(`https://loripsum.net/api/1/short`, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+  return response.data;
 };
 
 const Tabs = () => {
