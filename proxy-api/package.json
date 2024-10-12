@@ -1,0 +1,17 @@
+{
+  "name": "loripsum-proxy",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.1.1",
+    "axios": "^1.7.7",
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}
