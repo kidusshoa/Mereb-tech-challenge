@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const fetchContent = async (tabId) => {
-  const response = await axios.get(`https://loripsum.net/api/1/short`);
+  const response = await axios.get(`https://loripsum.net/api/1/short`, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      Referer: "https://loripsum.net",
+      "sec-fetch-site": "same-origin",
+    },
+  });
   return response.data;
 };
 
