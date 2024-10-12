@@ -3,7 +3,10 @@ import axios from "axios";
 
 const fetchContent = async (tabId) => {
   const response = await axios.get(`http://localhost:8000/api/loripsum`);
-  return response.data;
+  let content = response.data;
+  content = content.replace(/<\/?[^>]+(>|$)/g, "");
+
+  return content;
 };
 
 const Tabs = () => {

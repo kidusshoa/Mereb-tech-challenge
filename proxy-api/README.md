@@ -1,6 +1,6 @@
 # Elysia with Bun runtime
 
-# Proxy API for react-tabs-challenge`
+# Proxy API for react-tabs-challenge
 
 # Bun install
 

@@ -5,9 +5,7 @@ import axios from "axios";
 const app = new Elysia()
   .use(cors())
   .get("/api/loripsum", async () => {
-    const { data } = await axios.get(
-      "https://loripsum.net/api/10/short/headers"
-    );
+    const { data } = await axios.get("https://loripsum.net/api/1/short");
     return data;
   })
   .listen(8000);
