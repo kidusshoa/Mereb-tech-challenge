@@ -49,6 +49,19 @@ body {
   padding: 20px;
   height: 2px;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.tab-content h2 {
+  width: 85%;
+}
+
+.tab-content p {
+  width: 85%;
+  font-family: "Courier New", Courier, monospace;
+  line-height: 1.8;
 }
 
 @media only screen and (max-width: 960px) {
