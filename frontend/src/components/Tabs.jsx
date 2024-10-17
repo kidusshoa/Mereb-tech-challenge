@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const fetchContent = async (tabId) => {
   const response = await axios.get(`http://localhost:8000/api/loripsum`);
@@ -45,32 +46,19 @@ const Tabs = () => {
   ];
 
   const [activeTab, setActiveTab] = useState(1);
-  const [content, setContent] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchTabContent = async () => {
-      if (content[activeTab]) return;
-
-      setLoading(true);
-      setError(null);
-
-      try {
-        const data = await fetchContent(activeTab);
-        setContent((prevContent) => ({
-          ...prevContent,
-          [activeTab]: data,
-        }));
-      } catch (err) {
-        setError("Failed to fetch content. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTabContent();
-  }, [activeTab, content]);
+  const {
+    data: content,
+    error,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["content", activeTab],
+    queryFn: fetchContent,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <div className="container">
@@ -87,12 +75,12 @@ const Tabs = () => {
       </div>
       <div className="tab-content">
         <h2>{tabs.find((tab) => tab.id === activeTab)?.title}</h2>
-        {loading ? (
+        {isLoading ? (
           <p>Loading content...</p>
-        ) : error ? (
-          <p>{error}</p>
+        ) : isError ? (
+          <p>{error.message || "Failed to fetch content."}</p>
         ) : (
-          <p>{content[activeTab]}</p>
+          <p>{content}</p>
         )}
       </div>
     </div>
